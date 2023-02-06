@@ -1,0 +1,236 @@
+.chatContainer{
+  width: 100%;
+  height:100%;
+  min-height:100%;
+  background-color: #1c2732;
+  color: white;
+  padding-top: 60px;
+  /* position: relative; */
+}
+.copyRoomLinkDiv{
+  width: 90%;
+  height: 25px;
+  background-color: white;
+  color: black;
+  margin-top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+.menuIcon{
+  width: 23px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+.closeLink{
+  width: 20px;
+  position: absolute;
+  top: -18px;
+  left: -0px;
+  border: 2px solid white;
+  border-radius: 4px 4px 0 0;
+}
+.menuContainer{
+  position: absolute;
+  width: 60%;
+  max-width: 350px;
+  height: 100%;
+  background-color: white;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  background-color: #d2d2d2;
+  padding: 20px;
+  color: black;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+}
+.menuContainer button{
+  margin-top: auto;
+  background-color: rgb(151, 0, 0);
+  color: white;
+  height: 40px;
+  border: none;
+  border-radius: 30px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.membersList{
+  margin: 10px;
+  margin-left: 30px;
+}
+.membersList li{
+  padding: 5px 0;
+}
+.c-b{
+  width: 27px;
+}
+.fullChatArea{
+  width: 100%;
+  height: calc(100% - 40px);
+  position: relative;
+  display: flex;
+}
+.chatArea1{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 60px;
+}
+.chatArea2{
+  display: none;
+}
+/* textAreaContainer */
+
+.textAreaContainer{
+  margin-top: auto;
+  background-color:rgb(247, 249, 250);
+  min-height: 50px;
+  display: flex;
+  padding: 15px 15px;
+  justify-content: unset;
+  align-items: flex-end;
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* align-items: center; */
+}
+
+.emojiIcon,.galleryIcon,.sendIcon{
+  width: 25px;
+}
+.sendIcon{
+  margin-left: auto;
+}
+.emojiIcon{
+  margin-right: 10px;
+}
+.galleryIcon{
+margin-left: 15px;
+}
+.textArea{
+  min-height: 20px;
+  width: calc(100% - 125px);
+  resize: none;
+  border-radius: 3px;
+  border: none;
+  /* margin-bottom: 2.5px; */
+  padding: 0 5px;
+  font-size: 14px;
+}
+.displayEmojis{
+  position: absolute;
+  width: clamp(200px, 90%, 800px);
+  height: 500px;
+  background-color: white;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 90px;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+/*  */
+.displayChatsContainer{
+  max-width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.myMessages,.otherMessages{
+  word-wrap: break-word;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  padding: 15px 25px;
+  width: 80%;
+}
+.myMessages{
+  background-color: green;
+  border-radius: 10px;
+  margin-left: auto;
+}
+.otherMessages{
+  background-color: #363b40;
+  border-radius: 10px;
+  margin-right: auto;
+  position: relative;
+  padding-top: 35px;
+}
+.otherMessageSender{
+  font-size: 14px;
+  position: absolute;
+  top: 5px;
+}
+.unReadMeassagesDisplay{
+  position: absolute;
+  bottom: 70px;
+  right: 10px;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30px;
+  padding: 10px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 500;
+}
+.unReadMeassagesDisplay > div{
+  margin-bottom: 9px;
+}
+.downIcon{
+  width: 20px;
+  margin-top: 6px;
+}
+
+
+
+
+@media screen and (min-width:769px) {
+  .displayChatsContainer{
+    padding: 0 50px;
+  }
+  .myMessages,.otherMessages{
+    padding: 23px;
+  }
+}
+@media screen and (min-width:1200px) {
+  .displayChatsContainer{
+    padding: 0 100px;
+  }
+  .myMessages,.otherMessages{
+    padding: 25px;
+    margin-block: 10px;
+  }
+  .chatArea1{
+    width: calc(100% - 340px);
+  }
+  .chatArea2{
+    display: flex;
+    align-items: center;
+  }
+  .menuContainer{
+    position: relative;
+    height: 95%;
+    margin: 0 20px;
+    border-radius: 10px;
+    width: 300px;
+   
+  }
+  .menuIcon,.c-b{
+    display: none;
+  }
+}
