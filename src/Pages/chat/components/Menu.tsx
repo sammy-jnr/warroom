@@ -1,23 +1,45 @@
-import React from 'react'
+import { useContext } from 'react'
 import closeBlack from "../../../Assets/Icons/closeBlack.svg"
-interface MenuProps {
-  setshowMenu: React.Dispatch<React.SetStateAction<boolean>>,
-  // showMenu: boolean
-}
-const Menu:React.FC<MenuProps> = (props) => {
-  const channelOwner = localStorage.getItem("channelOwner")
+import { MainContext } from "../../../context/GeneralContext"
+import { MenuProps } from '../../../Interface'
+
+
+const Menu: React.FC<MenuProps> = (props) => {
+
+  const {
+    creator,
+    members,
+    name,
+    leaveRoom,
+    cookies,
+    destroyRoom
+  } = useContext(MainContext)
+
+  const removeRoom = () => {
+    if (creator === name) {
+      destroyRoom(cookies.roomId, cookies.joinPassword)
+      console.log("destroyRoom")
+    } else {
+      leaveRoom(cookies.roomId, cookies.joinPassword)
+      console.log("leaveRoom")
+    }
+  }
+
   return (
     <div className='menuContainer'>
-      <img src={closeBlack} alt="" className="closeIcon c-b" onClick={()=> props.setshowMenu(false)} />
-      <b>Members</b>
+      <img src={closeBlack} alt="" className="closeIcon c-b" onClick={() => props.setshowMenu(false)} />
+      <p><b>Members</b> <span>{members?.length}</span></p>
       <ul className="membersList">
-        <li>sammy</li>
-        <li>sammy</li>
-        <li>sammy</li>
-        <li>sammy</li>
+        {
+          members?.map((item, index) => {
+            return (<li key={index}>{item}</li>)
+          })
+        }
       </ul>
-      <button>
-        {channelOwner? "Destroy room" : "leave room"}
+      <button
+        onClick={removeRoom}
+      >
+        {creator === name ? "Destroy room" : "leave room"}
       </button>
     </div>
   )

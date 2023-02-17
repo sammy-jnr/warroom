@@ -1,15 +1,14 @@
-import React from 'react'
-import EmojiPicker,{EmojiClickData} from "emoji-picker-react"
-interface emojiProps{
-  setchoosenEmoji: React.Dispatch<React.SetStateAction<EmojiClickData|undefined>>
-}
-const ShowEmoji:React.FC<emojiProps> = (props) => {
+import EmojiPicker from "emoji-picker-react"
+import { EmojiProps } from '../../../Interface'
+
+
+const ShowEmoji: React.FC<EmojiProps> = (props) => {
 
   return (
     <div className='displayEmojis'>
-      <EmojiPicker height={"100%"} width={"100%"} onEmojiClick={(emojiObject,  e)=>{
+      <EmojiPicker height={"100%"} width={"100%"} onEmojiClick={(emojiObject, e) => {
         props.setchoosenEmoji(emojiObject)
-      }}/>
+      }} />
     </div>
   )
 }

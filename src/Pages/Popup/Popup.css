@@ -1,9 +1,9 @@
-.popupContainer{
+.popupContainer {
   width: 100%;
   height: 100%;
   position: absolute;
   background: rgba(98, 98, 98, 0.25);
-  box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
+  box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(4.5px);
   -webkit-backdrop-filter: blur(4.5px);
   display: flex;
@@ -11,13 +11,15 @@
   justify-content: center;
 
 }
-.closeIcon{
+
+.closeIcon {
   width: 30px;
   position: absolute;
   top: 20px;
   right: 20px;
 }
-.popupContainerInner{
+
+.popupContainerInner {
   width: 90%;
   max-width: 400px;
   height: 400px;
@@ -29,26 +31,30 @@
 }
 
 /*  */
-.createRoomLoadingDiv{
+.createRoomLoadingDiv {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.createRoomLoadingDiv div{
+
+.createRoomLoadingDiv div {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
-.createRoomLoadingDiv div p{
+
+.createRoomLoadingDiv div p {
   margin-bottom: 50px;
 }
-#createRoomLoadingText{
+
+#createRoomLoadingText {
   font-size: 30px;
   font-weight: 700;
 }
+
 .loader {
   width: 100px;
   height: 100px;
@@ -64,14 +70,15 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
-} 
+}
 
 /*  */
 
-.joinRoomContainer{
+.joinRoomContainer {
   width: 100%;
   height: 240px;
   display: flex;
@@ -80,7 +87,8 @@
   align-items: center;
   position: relative;
 }
-.joinRoomContainer div{
+
+.joinRoomContainer div {
   /* margin: 10px 50px; */
   width: 100%;
   display: flex;
@@ -88,7 +96,8 @@
   flex-direction: column;
   align-items: center;
 }
-.joinRoomContainer div  h3{
+
+.joinRoomContainer div h3 {
   font-weight: 600;
   font-size: 17px;
   position: absolute;
@@ -98,7 +107,8 @@
   width: 100%;
   text-align: center;
 }
-.joinRoomContainer div input{
+
+.joinRoomContainer div input {
   width: 70%;
   border: none;
   background-color: rgb(194, 208, 190);
@@ -107,11 +117,13 @@
   margin-top: 20px;
   border-radius: 3px;
 }
-.errorText{
+
+.errorText {
   font-size: 13px;
   color: red;
 }
-.joinRoomContainer button{
+
+.joinRoomContainer button {
   height: 40px;
   width: 70%;
   font-weight: 600;
@@ -124,6 +136,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .circleLoader {
   width: 25px;
   height: 25px;
@@ -133,58 +146,64 @@
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
   }
 
-  @keyframes rotation {
-  0% {
-      transform: rotate(0deg);
-  }
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
-  } 
-  /*  */
-  .createRoomContainer{
-    width: 100%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 30px 0;
-  }
-  .createRoomContainer input{
-    margin-top: 25px;
-    width: 70%;
-    border: none;
-    background-color: rgb(194, 208, 190);
-    height: 30px;
-    padding: 5px;
-    margin-top: 20px;
-    border-radius: 3px;
-  }
-  .createRoomContainer button{
-    height: 40px;
-    width: 70%;
-    font-weight: 600;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: black;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: auto;
-  }
-  .createRoomContainer h3{
-    position: absolute;
-    top: -20px;
-  }
-  .createRoomError{
-    position: absolute;
-    bottom: -25px;
-    font-size: 14px;
-    color: red;
-  }
+}
+
+/*  */
+.createRoomContainer {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 30px 0;
+}
+
+.createRoomContainer input {
+  margin-top: 25px;
+  width: 70%;
+  border: none;
+  background-color: rgb(194, 208, 190);
+  height: 30px;
+  padding: 5px;
+  margin-top: 20px;
+  border-radius: 3px;
+}
+
+.createRoomContainer button {
+  height: 40px;
+  width: 70%;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.createRoomContainer h3 {
+  position: absolute;
+  top: -20px;
+}
+
+.createRoomError {
+  position: absolute;
+  bottom: -25px;
+  font-size: 14px;
+  color: red;
+}

@@ -1,15 +1,16 @@
-.chatContainer{
+.chatContainer {
   width: 100%;
-  height:100%;
-  min-height:100%;
+  height: 100%;
+  min-height: 100%;
   background-color: #1c2732;
   color: white;
   padding-top: 60px;
   /* position: relative; */
 }
-.copyRoomLinkDiv{
-  width: 90%;
-  height: 25px;
+
+.copyRoomLinkDiv {
+  width: clamp(20%, 95%, 600px);
+  height: 55px;
   background-color: white;
   color: black;
   margin-top: 0;
@@ -23,14 +24,27 @@
   position: relative;
   margin-bottom: 15px;
   border-radius: 4px;
+  font-size: 14px;
 }
-.menuIcon{
+
+.copyRoomLinkDiv>div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.copyIcon {
+  width: 17px;
+}
+
+.menuIcon {
   width: 23px;
   position: absolute;
   right: 20px;
   top: 20px;
 }
-.closeLink{
+
+.closeLink {
   width: 20px;
   position: absolute;
   top: -18px;
@@ -38,7 +52,8 @@
   border: 2px solid white;
   border-radius: 4px 4px 0 0;
 }
-.menuContainer{
+
+.menuContainer {
   position: absolute;
   width: 60%;
   max-width: 350px;
@@ -54,7 +69,14 @@
   display: flex;
   flex-direction: column;
 }
-.menuContainer button{
+
+.menuContainer p {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.menuContainer button {
   margin-top: auto;
   background-color: rgb(151, 0, 0);
   color: white;
@@ -64,23 +86,29 @@
   font-size: 17px;
   font-weight: 600;
 }
-.membersList{
+
+.membersList {
   margin: 10px;
   margin-left: 30px;
+  margin-top: 30px;
 }
-.membersList li{
-  padding: 5px 0;
+
+.membersList li {
+  padding: 7px 0;
 }
-.c-b{
+
+.c-b {
   width: 27px;
 }
-.fullChatArea{
+
+.fullChatArea {
   width: 100%;
-  height: calc(100% - 40px);
+  height: calc(100% - 70px);
   position: relative;
   display: flex;
 }
-.chatArea1{
+
+.chatArea1 {
   width: 100%;
   height: 100%;
   display: flex;
@@ -88,14 +116,16 @@
   position: relative;
   padding-bottom: 60px;
 }
-.chatArea2{
+
+.chatArea2 {
   display: none;
 }
+
 /* textAreaContainer */
 
-.textAreaContainer{
+.textAreaContainer {
   margin-top: auto;
-  background-color:rgb(247, 249, 250);
+  background-color: rgb(247, 249, 250);
   min-height: 50px;
   display: flex;
   padding: 15px 15px;
@@ -108,19 +138,41 @@
   /* align-items: center; */
 }
 
-.emojiIcon,.galleryIcon,.sendIcon{
+.uploadImageButton {
+  width: 25px;
+  height: 25px;
+  position: relative;
+}
+
+#imageInput {
+  width: 22px;
+  position: absolute;
+  left: 15px;
+  top: 2px;
+  z-index: 1;
+  opacity: 0;
+}
+
+.emojiIcon,
+.galleryIcon,
+.sendIcon {
   width: 25px;
 }
-.sendIcon{
+
+.sendIcon {
   margin-left: auto;
 }
-.emojiIcon{
+
+.emojiIcon {
   margin-right: 10px;
 }
-.galleryIcon{
-margin-left: 15px;
+
+.galleryIcon {
+  margin-left: 15px;
+  position: absolute;
 }
-.textArea{
+
+.textArea {
   min-height: 20px;
   width: calc(100% - 125px);
   resize: none;
@@ -130,7 +182,8 @@ margin-left: 15px;
   padding: 0 5px;
   font-size: 14px;
 }
-.displayEmojis{
+
+.displayEmojis {
   position: absolute;
   width: clamp(200px, 90%, 800px);
   height: 500px;
@@ -143,38 +196,70 @@ margin-left: 15px;
 }
 
 /*  */
-.displayChatsContainer{
+.displayChatsContainer {
   max-width: 100%;
   padding: 20px;
   display: flex;
   flex-direction: column;
   overflow: auto;
 }
-.myMessages,.otherMessages{
+
+.myMessages,
+.otherMessages {
+  all: unset;
   word-wrap: break-word;
   flex-wrap: wrap;
   margin: 10px 0;
-  padding: 15px 25px;
-  width: 80%;
+  padding: 10px;
+  width: fit-content;
+  max-width: 250px;
+
 }
-.myMessages{
+
+.myMessages {
   background-color: green;
   border-radius: 10px;
   margin-left: auto;
 }
-.otherMessages{
+
+.displayImages_img {
+  all: unset;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.displayVideo_Video {
+  max-width: 100%;
+  max-height: 400px;
+}
+
+.otherMessages {
   background-color: #363b40;
   border-radius: 10px;
   margin-right: auto;
   position: relative;
   padding-top: 35px;
 }
-.otherMessageSender{
-  font-size: 14px;
+
+.otherMessageSender {
+  font-size: 24px;
   position: absolute;
   top: 5px;
 }
-.unReadMeassagesDisplay{
+
+#videoPlayIcon {
+  position: absolute;
+  width: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: #0000006c;
+  padding: 10px;
+  padding-left: 11px;
+}
+
+.unReadMeassagesDisplay {
   position: absolute;
   bottom: 70px;
   right: 10px;
@@ -188,10 +273,12 @@ margin-left: 15px;
   font-size: 18px;
   font-weight: 500;
 }
-.unReadMeassagesDisplay > div{
+
+.unReadMeassagesDisplay>div {
   margin-bottom: 9px;
 }
-.downIcon{
+
+.downIcon {
   width: 20px;
   margin-top: 6px;
 }
@@ -200,37 +287,177 @@ margin-left: 15px;
 
 
 @media screen and (min-width:769px) {
-  .displayChatsContainer{
+  .displayChatsContainer {
     padding: 0 50px;
   }
-  .myMessages,.otherMessages{
+
+  .myMessages,
+  .otherMessages {
     padding: 23px;
+    max-width: 300px;
+
   }
 }
+
 @media screen and (min-width:1200px) {
-  .displayChatsContainer{
+  .displayChatsContainer {
     padding: 0 100px;
   }
-  .myMessages,.otherMessages{
+
+  .myMessages,
+  .otherMessages {
     padding: 25px;
     margin-block: 10px;
+    max-width: 400px;
   }
-  .chatArea1{
+
+  .chatArea1 {
     width: calc(100% - 340px);
   }
-  .chatArea2{
+
+  .chatArea2 {
     display: flex;
     align-items: center;
   }
-  .menuContainer{
+
+  .menuContainer {
     position: relative;
     height: 95%;
     margin: 0 20px;
     border-radius: 10px;
     width: 300px;
-   
+
   }
-  .menuIcon,.c-b{
+
+  .menuIcon,
+  .c-b {
     display: none;
   }
+
+  .textAreaContainer {
+    border-radius: 10px 0 0 0;
+  }
+}
+
+/*  */
+.previewImages {
+  position: absolute;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  background-color: #363b40;
+  top: 0;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 70px;
+}
+
+#previewBackIcon {
+  width: 30px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+.previewCurrentImage {
+  max-width: 95%;
+  height: calc(100% - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.currentImg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.bottomHalfPreviewImg {
+  /* background-color: red; */
+  min-height: 170px;
+  height: 170px;
+  width: 95%;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 10px; */
+}
+
+#imageTextDiv {
+  margin-top: auto;
+  display: flex;
+  width: 100%;
+  background-color: #dfdfdf;
+  border-radius: 5px;
+}
+
+#imageTextDiv input {
+  width: calc(100% - 50px);
+  height: 30px;
+  border: none;
+  padding: 0 5px;
+  background-color: transparent;
+}
+
+#imageTextDiv img {
+  margin-left: 15px;
+}
+
+.previewImgThumbnailsContainer {
+  height: 90px;
+  /* background-color: red; */
+  display: flex;
+  /* gap: 10px; */
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  /* justify-content: center; */
+  /* padding-inline: 40px; */
+}
+
+.thumbnailDiv {
+  min-width: 65px;
+  height: 80px;
+  position: relative;
+  margin: 5px;
+}
+
+.thumbnailImgs {
+  width: 100%;
+  max-width: 200px;
+  height: 100%;
+  border: 3px solid white;
+  border-radius: 5px;
+}
+
+.removeThumbnail {
+  top: -1px;
+  right: -1px;
+  position: absolute;
+  width: 15px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+/*  */
+.imageFullView {
+  position: absolute;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  background-color: #363b40;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flex-direction: column; */
+  /* padding-top: 70px; */
+}
+
+.imageFullViewImage {
+  max-width: 100%;
+  max-height: 100%;
 }

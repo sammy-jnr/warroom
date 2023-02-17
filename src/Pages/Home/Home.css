@@ -1,4 +1,4 @@
-.homeContainer{
+.homeContainer {
   width: 100%;
   height: 100%;
   background-image: url("../../Assets/Images/homeBackgroundSmall.png");
@@ -10,14 +10,17 @@
   flex-direction: column;
   /* overflow: hidden; */
 }
-.homeContainerTop{
+
+.homeContainerTop {
   height: 60%;
   width: 100%;
 }
-.homeContainerTop h1{
+
+.homeContainerTop h1 {
   margin: 20px;
 }
-.homeContainerBottom{
+
+.homeContainerBottom {
   height: 40%;
   /* background-color: ; */
   background-image: url("../../Assets/Images/miniBackgroundSmall1.svg");
@@ -28,13 +31,15 @@
   justify-content: center;
   padding-top: 35%;
 }
-.homeButtonDiv{
+
+.homeButtonDiv {
   height: fit-content;
   width: 100%;
   display: flex;
   justify-content: space-around;
 }
-.homeButtons{
+
+.homeButtons {
   padding: 10px 30px;
   padding-inline: clamp(20px, 30px, 40px);
   border: 6px solid #1d3557;
@@ -43,45 +48,52 @@
   font-size: 16px;
   background: #e0e0e0;
   box-shadow: inset 13px 13px 26px #1d3557c5,
-            inset -13px -13px 26px #ffffff;
+    inset -13px -13px 26px #ffffff;
 }
-#joinBtn{
+
+#joinBtn {
   box-shadow: inset 1px 1px 26px #1d3557c5,
-            inset 1px 1px 2px #ffffff;
+    inset 1px 1px 2px #ffffff;
 }
 
 
 @media screen and (min-width: 480px) {
-  .homeContainerBottom{
+  .homeContainerBottom {
     background-image: url("../../Assets/Images/miniBackgroundMediumLarge.svg");
   }
- 
+
 }
+
 @media screen and (min-width: 769px) {
-  .homeContainerTop{
+  .homeContainerTop {
     height: 55%;
     width: 100%;
   }
-  .homeContainerBottom{
+
+  .homeContainerBottom {
     height: 45%;
     background-image: url("../../Assets/Images/miniBackgroundLarge1.svg");
     padding-top: 20%;
   }
 }
+
 @media screen and (min-width: 1200px) {
-  .homeContainer{
+  .homeContainer {
     background-image: url("../../Assets/Images/homeBackgroundLarge.png");
   }
-  .homeContainerTop{
+
+  .homeContainerTop {
     height: 55%;
     width: 100%;
   }
-  .homeContainerBottom{
+
+  .homeContainerBottom {
     height: 45%;
     background-image: url("../../Assets/Images/miniBackgroundLarge1.svg");
     padding-top: 13%;
   }
-  .homeButtons{
+
+  .homeButtons {
     padding: 20px 50px;
   }
 }

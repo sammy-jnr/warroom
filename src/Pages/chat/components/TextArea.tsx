@@ -1,36 +1,42 @@
-import {useState,useContext} from 'react'
+import { useContext, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize';
 import sendIcon from "../../../Assets/Icons/sendIcon.svg"
 import emojiIcon from "../../../Assets/Icons/emojiIcon.svg"
 import galleryIcon from "../../../Assets/Icons/galleryIcon.svg"
 import { MainContext } from "../../../context/GeneralContext"
+import { InputProps } from '../../../Interface'
 
-interface InputProps{
 
-  // props: {}
-  inputRef: React.Ref<HTMLTextAreaElement>|null,
-  setshowSelectEmojiPage: React.Dispatch<React.SetStateAction<boolean>>
-}
-const TextArea:React.FC<InputProps> = (props) => {
+const TextArea: React.FC<InputProps> = (props) => {
   const {
-   sendMessageToDB
+    sendMessageToDB
   } = useContext(MainContext)
-  const [message,setmessage] = useState("")
+  const [myFiles, setmyFiles] = useState<FileList>();
+
+
   return (
     <div className='textAreaContainer'>
-      <img src={emojiIcon} alt="" className="emojiIcon" onClick={()=> props.setshowSelectEmojiPage(prev => !prev)}/>
+      <img src={emojiIcon} alt="" className="emojiIcon" onClick={() => props.setshowSelectEmojiPage(prev => !prev)} />
       <TextareaAutosize
-      ref={props.inputRef}
-      maxRows={4} 
-      onChange={(e)=>setmessage(e.target.value)}
-      className='textArea'
-      placeholder='Write a message...'
+        ref={props.inputRef}
+        maxRows={4}
+        onChange={(e) => props.setmessage(e.target.value)}
+        className='textArea'
+        placeholder='Write a message...'
       />
-      <img src={galleryIcon} alt="" className="galleryIcon" />
-      <img src={sendIcon} alt="" className="sendIcon" onClick={()=>{
-        sendMessageToDB(message)
-        console.log("clicked")
-        }}/>
+      <div className="uploadImageButton">
+        <input type="file"
+          id="imageInput"
+          multiple
+          name="files"
+          ref={props.filesRef}
+          onChange={(e) => props.onNewFile(e)} />
+        <img src={galleryIcon} alt="" className="galleryIcon" />
+      </div>
+      <img src={sendIcon} alt="" className="sendIcon" onClick={() => {
+        props.clearInputField()
+        sendMessageToDB(props.message)
+      }} />
     </div>
   )
 }
