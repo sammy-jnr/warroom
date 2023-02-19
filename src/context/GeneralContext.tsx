@@ -18,7 +18,8 @@ export const MainContext = createContext<MainContextInterface>({} as MainContext
 
 export function MainProvider({ children }: AuthContextProviderProps) {
 
-  const baseUrl = process.env.REACT_APP_BASE_URL
+  const baseUrl = "https://sammy-warroom-api.onrender.com"
+  
   const [cookies, setCookie, removeCookie] = useCookies(["roomId", "joinPassword"]);
   const [generalLoading, setgeneralLoading] = useState<boolean>(false);
   const [popupEvent, setpopupEvent] = useState<string | null>("");
@@ -35,7 +36,7 @@ export function MainProvider({ children }: AuthContextProviderProps) {
 
 
 
-  const socket = io("http://localhost:5000")
+  const socket = io("https://sammy-warroom-api.onrender.com")
 
   const initializeSocketIO = () => {
     socket.on("connect", () => { })
