@@ -1,10 +1,7 @@
 import React from 'react'
 import closeIcon from "../../../Assets/Icons/closeIcon.svg"
+import { ImageFullViewProps } from '../../../Interface'
 
-interface ImageFullViewProps {
-  currentImageSRC: string,
-  setshowFullScreen: React.Dispatch<React.SetStateAction<boolean>>
-}
 const ImageFullView: React.FC<ImageFullViewProps> = (props) => {
 
 

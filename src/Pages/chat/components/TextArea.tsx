@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import TextareaAutosize from 'react-textarea-autosize';
 import sendIcon from "../../../Assets/Icons/sendIcon.svg"
 import emojiIcon from "../../../Assets/Icons/emojiIcon.svg"
@@ -11,7 +11,6 @@ const TextArea: React.FC<InputProps> = (props) => {
   const {
     sendMessageToDB
   } = useContext(MainContext)
-  const [myFiles, setmyFiles] = useState<FileList>();
 
 
   return (

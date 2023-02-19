@@ -11,6 +11,7 @@ import { EmojiClickData } from "emoji-picker-react"
 import { MainContext } from "../../context/GeneralContext"
 import PreviewImages from './components/PreviewImages'
 import FullView from './components/FullView'
+import { getUserColor } from '../../utils/generateRandomColor'
 
 
 
@@ -27,7 +28,10 @@ function Chat() {
     name,
     creator,
     currentImageFullView,
-    setcurrentImageFullView
+    showRedDot,
+    setshowRedDot,
+    setshowPreviewImagePage,
+    showPreviewImagePage
   } = useContext(MainContext)
 
   const [showMenu, setshowMenu] = useState<boolean>(false);
@@ -35,7 +39,6 @@ function Chat() {
   const [choosenEmoji, setchoosenEmoji] = useState<EmojiClickData | undefined>();
   const [showCopyLinkText, setshowCopyLinkText] = useState<boolean>(false);
   const [message, setmessage] = useState("")
-  const [showPreviewImagePage, setshowPreviewImagePage] = useState(false);
 
   const [previewArray, setpreviewArray] = useState<string[]>([]);
 
@@ -83,7 +86,6 @@ function Chat() {
       setuploadedFiles(files)
       Object.keys(files).forEach(i => {
         const file = files[Number(i)]
-        console.log(file)
         const reader = new FileReader()
         reader.onload = (e) => {
           let url: string
@@ -93,15 +95,14 @@ function Chat() {
           }
         }
         reader.readAsDataURL(file)
-        if (files[Number(i)].size > 102400000) {
+        if (files[Number(i)].size > 20480000) {
           largeFilesCount += 1
-          console.log(files[Number(i)])
         }
       })
       if (largeFilesCount > 0) {
         setnotificationObj({
           backgroundColor: "red",
-          text: largeFilesCount === 1 ? "File is greater than 100MB" : "Some files are greater than 100MB!",
+          text: largeFilesCount === 1 ? "File is greater than 20MB" : "Some files are greater than 20MB!",
           status: true,
           time: 5000,
           fontSize: 14
@@ -111,19 +112,34 @@ function Chat() {
     setshowPreviewImagePage(true)
   }
 
+
   // get the click event from previewImages and call the sendMediaToDB function here
   const sendMedia = () => {
-    let formData = new FormData()
     if (!uploadedFiles) return
+    Object.keys(uploadedFiles).forEach(file => {
+      if(uploadedFiles[Number(file)].size > 20480000){
+        setnotificationObj({
+          backgroundColor: "red",
+          text: "Some files may be greater than 20MB!",
+          status: true,
+          time: 5000,
+          fontSize: 14
+        })
+        return
+      }
+    })
+    
+    let formData = new FormData()
     for (let i = 0; i < uploadedFiles.length; i++) {
       formData.append("files", uploadedFiles[i])
     }
     formData.append("messages", imageMessage)
     formData.append("roomId", cookies.roomId)
     formData.append("joinPassword", cookies.joinPassword)
+    formData.append("userColor", getUserColor())
     if (name)
       formData.append("sender", name)
-    sendMediaToDB(formData, imageMessage)
+    sendMediaToDB(formData)
   }
 
 
@@ -131,7 +147,8 @@ function Chat() {
     <div className='chatContainer'>
       {currentImageFullView?.display && <FullView />}
       {showPreviewImagePage && <PreviewImages setshowPreviewImagePage={setshowPreviewImagePage} previewArray={previewArray} setpreviewArray={setpreviewArray} sendMedia={sendMedia} setimageMessage={setimageMessage} />}
-      <img src={menuWhiteIcon} alt="" className="menuIcon" onClick={() => setshowMenu(true)} />
+      {showRedDot && <div className='redDot'></div>}
+      <img src={menuWhiteIcon} alt="" className="menuIcon" onClick={() => {setshowMenu(true);     setshowRedDot(false)}} />
       {showMenu && <Menu setshowMenu={setshowMenu} />}
       {showCopyLinkText && <div className="copyRoomLinkDiv">
         <div>

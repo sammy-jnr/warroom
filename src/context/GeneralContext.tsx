@@ -1,106 +1,85 @@
-import {createContext, useEffect, useState} from "react"
+import { createContext, useEffect, useState } from "react"
 import axios from "axios"
-import {AxiosResponse} from "axios"
 import { useCookies } from "react-cookie";
-import {io} from "socket.io-client"
-import { 
-  Message, 
-  AuthContextProviderProps, 
-  NotificationObjectInterface, 
-  RoomInterface, 
-  CurrentImageFullViewInterface 
+import { io } from "socket.io-client"
+import { getUserColor } from "../utils/generateRandomColor";
+import {
+  Message,
+  AuthContextProviderProps,
+  NotificationObjectInterface,
+  RoomInterface,
+  CurrentImageFullViewInterface,
+  MainContextInterface
 } from "../Interface"
-
-
-
-interface MainContextInterface {
-  generalLoading: boolean,
-  setgeneralLoading:React.Dispatch<React.SetStateAction<boolean>>
-  popupEvent: string|null,
-  setpopupEvent: React.Dispatch<React.SetStateAction<string | null>>
-  joinRoom: (username: string, password: string, roomId: string) => Promise<AxiosResponse<any, any>>,
-  setRoomCookie:(joinPassword: string, roomID: string) => void,
-  cookies: {roomId?: any; joinPassword?: any;},
-  createRoom: (username: string, password: string, roomName: string) => Promise<AxiosResponse<any, any>>,
-  messages: Message[] | undefined,
-  initializeSocketIO: () => void,
-  connectRoomSocketIO: (room: string) => void
-  sendMessageToDB: (message: string) => Promise<void> | undefined,
-  setname: React.Dispatch<React.SetStateAction<string | undefined>>,
-  name: string | undefined,
-  numberOfNewMessages: number,
-  setnotificationObj: React.Dispatch<React.SetStateAction<NotificationObjectInterface | null | undefined>>,
-  notificationObj: NotificationObjectInterface | null | undefined,
-  creator: string | null,
-  members: string[] | undefined,
-  leaveRoom: (roomId: string, joinPassword: string) => void,
-  destroyRoom: (roomId: string, joinPassword: string) => void,
-  getRoomFromDB: (roomId: string, joinPassword: string) => void,
-  sendMediaToDB: (formData: FormData, message: string) => void,
-  setcurrentImageFullView: React.Dispatch<React.SetStateAction<CurrentImageFullViewInterface | undefined>>,
-  currentImageFullView: CurrentImageFullViewInterface | undefined
-}
-
-
 
 export const MainContext = createContext<MainContextInterface>({} as MainContextInterface)
 
-export function MainProvider ({children}:AuthContextProviderProps){
 
-  const [cookies, setCookie, removeCookie] = useCookies(["roomId","joinPassword"]);
+
+export function MainProvider({ children }: AuthContextProviderProps) {
+
+  const baseUrl = process.env.REACT_APP_BASE_URL
+  const [cookies, setCookie, removeCookie] = useCookies(["roomId", "joinPassword"]);
   const [generalLoading, setgeneralLoading] = useState<boolean>(false);
-  const [popupEvent, setpopupEvent] = useState<string|null>("");
-  const [messages, setmessages] = useState<Message[]|undefined>();
-  const [members, setmembers] = useState<string[]|undefined>();
-  const [name, setname] = useState<string|undefined>();
+  const [popupEvent, setpopupEvent] = useState<string | null>("");
+  const [messages, setmessages] = useState<Message[] | undefined>();
+  const [members, setmembers] = useState<string[] | undefined>();
+  const [name, setname] = useState<string | undefined>();
   const [numberOfNewMessages, setnumberOfNewMessages] = useState<number>(0);
-  const [creator, setcreator] = useState<string|null>(null);
-  const [notificationObj, setnotificationObj] = useState<NotificationObjectInterface|null>();
+  const [creator, setcreator] = useState<string | null>(null);
+  const [notificationObj, setnotificationObj] = useState<NotificationObjectInterface | null>();
   const [currentImageFullView, setcurrentImageFullView] = useState<CurrentImageFullViewInterface>();
+  const [uploadImageLoading, setuploadImageLoading] = useState<boolean>(false);
+  const [showRedDot, setshowRedDot] = useState<boolean>(true);
+  const [showPreviewImagePage, setshowPreviewImagePage] = useState(false);
 
-  
+
+
   const socket = io("http://localhost:5000")
-  
-  const initializeSocketIO = ()=>{
-    socket.on("connect",()=>{
-    console.log(socket.id)
-    })
+
+  const initializeSocketIO = () => {
+    socket.on("connect", () => { })
   }
 
-  useEffect(()=>{
-    if(!cookies.roomId)return;
+  useEffect(() => {
+    if (!cookies.roomId) return;
     getRoomFromDB(cookies.roomId, cookies.joinPassword)
     initializeSocketIO()
     connectRoomSocketIO(cookies.roomId)
     const name = localStorage.getItem("username")
-    if(name){
+    if (name) {
       setname(name)
     }
-  },[])
+  }, [])
 
-  const connectRoomSocketIO = (room:string) => {
-    socket.emit("joinRoom", room,(message:Message[])=> {
+  const connectRoomSocketIO = (room: string) => {
+    socket.emit("joinRoom", room, (message: Message[]) => {
       setmessages(message)
     })
   }
 
   // this makes all users in that room fetch an updated array of the messages after a message is sent
-  const sendMessageSocketIO = (roomId:string) => {
-    socket.emit("sendMessage",roomId)
+  const sendMessageSocketIO = (roomId: string) => {
+    socket.emit("sendMessage", roomId)
   }
 
-  socket.on("updateMessage", (message:Message[])=>{
+  socket.on("updateMessage", (message: Message[]) => {
     setmessages(message)
-    setnumberOfNewMessages(prev => prev +=1)
+    setnumberOfNewMessages(prev => prev += 1)
   })
-  socket.on("startDestruction", ()=>{
-    removeCookie("roomId",{path:'/'})
-    removeCookie("joinPassword",{path:'/'})
+  socket.on("startDestruction", () => {
+    removeCookie("roomId", { path: '/' })
+    removeCookie("joinPassword", { path: '/' })
     window.location.reload()
   })
+  socket.on("updateMembers", (members: string[]) => {
+    setmembers(members)
+    setshowRedDot(true)
+  })
 
 
-  const joinRoom = (username:string, password:string, roomId:string) => {
+
+  const joinRoom = (username: string, password: string, roomId: string) => {
     return axios({
       method: "post",
       data: {
@@ -109,11 +88,11 @@ export function MainProvider ({children}:AuthContextProviderProps){
         roomId
       },
       withCredentials: true,
-      url: "http://localhost:5000/joinRoom",
+      url: `${baseUrl}/joinRoom`,
     })
   }
 
-  const createRoom = (username:string, password:string, roomName:string) => {
+  const createRoom = (username: string, password: string, roomName: string) => {
     return axios({
       method: "post",
       data: {
@@ -122,11 +101,11 @@ export function MainProvider ({children}:AuthContextProviderProps){
         roomName,
       },
       withCredentials: true,
-      url: "http://localhost:5000/createRoom",
+      url: `${baseUrl}/createRoom`,
     })
   }
 
-  const setRoomCookie = (joinPassword:string, roomId:string) => {
+  const setRoomCookie = (joinPassword: string, roomId: string) => {
     const date = new Date();
     date.setTime(date.getTime() + 1000 * 60 * 60 * 12);
 
@@ -140,113 +119,135 @@ export function MainProvider ({children}:AuthContextProviderProps){
     });
   };
 
-  const sendMessageToDB = (message:string) => {
-    if(message.length < 1)return
+  const sendMessageToDB = (message: string) => {
+    if (message.length < 1) return
     const roomId = cookies.roomId
     const joinPassword = cookies.joinPassword
-    if(!roomId || !name) return;
+    if (!roomId || !name) return;
     const username = name
     return axios({
       method: "post",
       data: {
-        message:{
+        message: {
           sender: username,
-          message: message
+          message: message,
+          color: getUserColor()
         },
         roomId: roomId,
         joinPassword: joinPassword
       },
       withCredentials: true,
-      url: "http://localhost:5000/sendMessage",
+      url: `${baseUrl}/sendMessage`,
     })
-    .then((res)=>{
-      console.log(res.data)
-      res.data && setmessages(res.data);
-      console.log(res.data)
-      sendMessageSocketIO(roomId)
-    })
-    .catch(err => console.log(err))
+      .then((res) => {
+        res.data && setmessages(res.data);
+        sendMessageSocketIO(roomId)
+      })
+      .catch(err => console.log(err))
   }
 
-  const getRoomFromDB = (roomId:string, joinPassword:string) => {
+  const getRoomFromDB = (roomId: string, joinPassword: string) => {
     axios({
       method: "post",
-      data:{
+      data: {
         roomId,
         joinPassword
       },
-      url: "http://localhost:5000/getRoom",
+      url: `${baseUrl}/getRoom`,
       withCredentials: true
     })
-    .then((res)=>{
-      if(!res.data){
-        console.error("No data")
-        return
-      }
-      const room:RoomInterface = res.data.room
-      setmessages(room.messages)
-      setmembers(room.members)
-      setcreator(room.creator)
-    })
+      .then((res) => {
+        if (!res.data) {
+          console.error("No data")
+          return
+        }
+        const room: RoomInterface = res.data.room
+        setmessages(room.messages)
+        setmembers(room.members)
+        setcreator(room.creator)
+      })
   }
 
-  const leaveRoom = (roomId:string, joinPassword:string) => {
-    if(!name)return
+  const leaveRoom = (roomId: string, joinPassword: string) => {
+    if (!name) return
     axios({
       withCredentials: true,
-      url: "http://localhost:5000/leaveRoom",
+      url: `${baseUrl}/leaveRoom`,
       method: "post",
-      data:{
+      data: {
         roomId,
         joinPassword,
         username: name
       }
     })
-    .then(()=>{
-      removeCookie("roomId",{path:'/'})
-      removeCookie("joinPassword",{path:'/'})
-      window.location.reload()
-    })
-    .catch(err => console.log(err))
+      .then(() => {
+        removeCookie("roomId", { path: '/' })
+        removeCookie("joinPassword", { path: '/' })
+        window.location.reload()
+      })
+      .catch(err => console.log(err))
   }
 
-  const destroyRoom = (roomId:string, joinPassword:string) => {
-    if(!name)return
+  const destroyRoom = (roomId: string, joinPassword: string) => {
+    if (!name) return
     axios({
       withCredentials: true,
-      url: "http://localhost:5000/destroyRoom",
+      url: `${baseUrl}/destroyRoom`,
       method: "post",
-      data:{
+      data: {
         roomId,
         joinPassword,
       }
     })
-    .then(()=>{
-      socket.emit("destroyRoom",roomId)
-      removeCookie("roomId",{path:'/'})
-      removeCookie("joinPassword",{path:'/'})
-      window.location.reload()
-    })
-    .catch(err => console.log(err))
+      .then(() => {
+        socket.emit("destroyRoom", roomId)
+        removeCookie("roomId", { path: '/' })
+        removeCookie("joinPassword", { path: '/' })
+        window.location.reload()
+      })
+      .catch(err => console.log(err))
   }
 
-  const sendMediaToDB = (formData:FormData, message:string) => {
+  const sendMediaToDB = (formData: FormData) => {
     axios({
       method: "post",
       withCredentials: true,
-      url: "http://localhost:5000/sendMedia",
-      data:formData
+      url: `${baseUrl}/sendMedia`,
+      data: formData
     })
-    .then((res) => {
-      if(!res.data)return
-      console.log(res.data)
-      setmessages(res.data)
-      sendMessageSocketIO(cookies.roomId)
-    })
-    .catch(err => console.log(err))
+      .then((res) => {
+        if (!res.data) return
+        setmessages(res.data.msg)
+        sendMessageSocketIO(cookies.roomId)
+        setuploadImageLoading(false)
+        setshowPreviewImagePage(false)
+      })
+      .catch(err => {
+        setuploadImageLoading(false)
+        setnotificationObj({
+          backgroundColor: "red",
+          text: err.response.data.msg,
+          status: true,
+          time: 3500,
+          fontSize: 16
+        })
+      })
   }
-  
-  return(
+
+  const sendReportMail = (name:string, email:string, message:string) => {
+    return axios({
+      url: `${baseUrl}/sendMail`,
+      withCredentials: true,
+      data: {
+        message,
+        name,
+        email
+      },
+      method: "post"
+    })
+  }
+
+  return (
     <MainContext.Provider value={{
       generalLoading,
       setgeneralLoading,
@@ -272,7 +273,14 @@ export function MainProvider ({children}:AuthContextProviderProps){
       getRoomFromDB,
       sendMediaToDB,
       setcurrentImageFullView,
-      currentImageFullView
+      currentImageFullView,
+      setuploadImageLoading,
+      uploadImageLoading,
+      setshowRedDot,
+      showRedDot,
+      sendReportMail,
+      setshowPreviewImagePage,
+      showPreviewImagePage
     }}>
       {children}
     </MainContext.Provider>

@@ -3,11 +3,12 @@ import "../Popup.css";
 import { MainContext } from "../../../context/GeneralContext";
 import { useNavigate } from "react-router-dom";
 import { ResInterface } from "../../../Interface";
+import { generateRandomColor } from "../../../utils/generateRandomColor";
+
 
 function JoinRoom() {
   const {
     joinRoom,
-    // cookies,
     setRoomCookie,
     setgeneralLoading,
     initializeSocketIO,
@@ -36,9 +37,9 @@ function JoinRoom() {
     }
 
     if (loading) return;
+    generateRandomColor()
     joinRoom(username, password, roomId)
       .then((res: ResInterface) => {
-        console.log(res.data);
         const { username, roomId, joinPassword } = res.data;
         if (!roomId) return;
         initializeSocketIO();

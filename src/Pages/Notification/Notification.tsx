@@ -6,7 +6,6 @@ const Notification = () => {
   const {
     notificationObj,
     setnotificationObj
-
   } = useContext(MainContext)
 
 

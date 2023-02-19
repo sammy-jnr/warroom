@@ -1,12 +1,7 @@
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useContext } from 'react'
 import closeIcon from "../../../Assets/Icons/closeIcon.svg"
 import { MainContext } from "../../../context/GeneralContext"
 
-
-// interface ImageFullViewProps {
-//   currentImageSRC:string,
-//   setshowFullScreen: React.Dispatch<React.SetStateAction<boolean>>
-// }
 const FullView: React.FC = () => {
 
   const {

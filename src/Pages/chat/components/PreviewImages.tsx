@@ -2,23 +2,19 @@ import { useState, useEffect, useContext } from 'react'
 import closeIcon from "../../../Assets/Icons/closeIcon.svg"
 import sendIcon from "../../../Assets/Icons/sendIcon.svg"
 import ImageFullView from './ImageFullView'
+import { PreviewImagesProps } from '../../../Interface'
 import { MainContext } from "../../../context/GeneralContext"
 
-interface PreviewImagesProps {
-  setshowPreviewImagePage: React.Dispatch<React.SetStateAction<boolean>>,
-  previewArray: string[],
-  setpreviewArray: React.Dispatch<React.SetStateAction<string[]>>,
-  sendMedia: () => void,
-  setimageMessage: React.Dispatch<React.SetStateAction<string>>
-}
+
 const PreviewImages: React.FC<PreviewImagesProps> = (props) => {
-  const {
-    sendMediaToDB
-  } = useContext(MainContext)
 
   const [currentImageSRC, setcurrentImageSRC] = useState<string>("");
   const [showFullScreen, setshowFullScreen] = useState<boolean>(false);
 
+  const {
+    uploadImageLoading,
+    setuploadImageLoading
+  } = useContext(MainContext)
 
   useEffect(() => {
     if (props.previewArray.length > 0 && currentImageSRC === "") {
@@ -38,7 +34,6 @@ const PreviewImages: React.FC<PreviewImagesProps> = (props) => {
     if (clonedImageArray.length === 0) {
       props.setshowPreviewImagePage(false)
     }
-    console.log(clonedImageArray)
   }
 
 
@@ -76,7 +71,6 @@ const PreviewImages: React.FC<PreviewImagesProps> = (props) => {
     }
   })
 
-  //TODO FIX THUMBNAIL SIZE ERROR
   return (
     <>
       {
@@ -84,6 +78,11 @@ const PreviewImages: React.FC<PreviewImagesProps> = (props) => {
           <ImageFullView currentImageSRC={currentImageSRC} setshowFullScreen={setshowFullScreen} />
           :
           <div className='previewImages'>
+            {uploadImageLoading && <div className='uploadImageLoading'>
+              <span className='uploadImageLoadingLoader'></span>
+              <p>Uploading files</p>
+            </div>
+            }
             <img src={closeIcon}
               alt=""
               id='previewBackIcon'
@@ -117,11 +116,13 @@ const PreviewImages: React.FC<PreviewImagesProps> = (props) => {
               <section id='imageTextDiv'>
                 <input type="text" placeholder='message...' onChange={(e) => props.setimageMessage(e.target.value)} />
                 <img src={sendIcon} alt="" className='sendIcon'
-                  onClick={props.sendMedia}
+                  onClick={() =>{
+                    props.sendMedia()
+                    setuploadImageLoading(true)
+                  }}
                 />
               </section>
             </div>
-
           </div>
       }
     </>

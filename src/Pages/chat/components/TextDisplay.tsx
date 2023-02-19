@@ -2,7 +2,7 @@ import { useState, useRef, useContext, useEffect } from 'react'
 import downIcon from "../../../Assets/Icons/downIcon.svg"
 import playIcon from "../../../Assets/Icons/playIcon.svg"
 import { MainContext } from "../../../context/GeneralContext"
-import { CurrentImageFullViewInterface, Message } from "../../../Interface"
+import { Message } from "../../../Interface"
 
 
 function TextDisplay() {
@@ -46,14 +46,12 @@ function TextDisplay() {
       } else {
         setshowUreadMessagesNumber(true)
         setshowNewUnreadMessage(true)
-        console.log(showNewUnreadMessage)
       }
     }
   }
   const scrollToBottom = () => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     setshowNewUnreadMessage(false)
-
   }
 
   const fullyDisplayImage = (item: Message) => {
@@ -65,9 +63,20 @@ function TextDisplay() {
       })
   }
 
+
+
   const mappedMessages = messages?.map((item, index) => {
+    
     return (
-      <div className={item.sender === name ? 'myMessages' : 'otherMessages'}>
+      <div key={index} className={item.sender === name ? 'myMessages' : 'otherMessages'}>
+        {
+          item.sender !== name && 
+          <div 
+          style={{color: item.color}}
+          className='otherMessageSender'>
+            {item.sender}
+          </div>
+        }
         {
           item.mediaType === "image"
             ?
@@ -89,7 +98,7 @@ function TextDisplay() {
                   id='videoPlayIcon' />
               </>
               :
-              <p>{item.message}</p>
+              <pre>{item.message}</pre>
         }
       </div>
     )

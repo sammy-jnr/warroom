@@ -5,15 +5,39 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50%;
-  color: white;
+  color: #EEEEEE;
   display: flex;
   flex-direction: column;
-  /* overflow: hidden; */
 }
-
+.questionMark{
+  width: 25px;
+  position: absolute;
+  right: 23px;
+  top: 22px;
+}
+.questionMark:hover{
+  cursor: pointer;
+}
+.homePopup{
+  width: 130px;
+  position: absolute;
+  right: 20px;
+  top: 55px;
+  background-color: #EEEEEE;
+  color: black;
+  text-align: center;
+  padding: 10px 5px;
+  border-radius: 5px;
+}
 .homeContainerTop {
   height: 60%;
   width: 100%;
+}
+.homeopupItems{
+  padding: 10px;
+}
+.homeopupItems:hover{
+  cursor: pointer;
 }
 
 .homeContainerTop h1 {
