@@ -10,6 +10,7 @@
   align-items: center;
   padding: 15px 20px;
   width: 100%;
+  background-color: #59aeae;
 }
 .backArrow{
   width: 28px;
@@ -20,10 +21,13 @@
   max-width: 1024px;
   padding: 30px;
 }
+.instructionsContainer section h3{
+  text-decoration: underline;
+}
 .pointsList{
   margin-top: 20px;
   padding: 0 5px;
 }
 .pointsList li{
-  margin: 20px 0;
+  margin: 25px 0;
 }

@@ -82,7 +82,7 @@ const Contact = () => {
         <form onSubmit={(e) => submitForm(e)}>
           <input type="name" placeholder="Name" name="Name" onFocus={onFocus} ref={nameRef} />
           <input type="email" placeholder="Email" name="Email" onFocus={onFocus} ref={emailRef} />
-          <textarea name="report" id="" placeholder="your reason for writing us" onFocus={onFocus} ref={reportRef}></textarea>
+          <textarea name="report" id="" placeholder="Your reason for writing us?" onFocus={onFocus} ref={reportRef}></textarea>
           <button type="submit">Submit</button>
         </form>
       </section>

@@ -32,6 +32,7 @@ export interface EmojiProps {
   setchoosenEmoji: React.Dispatch<
     React.SetStateAction<EmojiClickData | undefined>
   >;
+  setshowSelectEmojiPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface MenuProps {

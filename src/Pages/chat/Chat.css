@@ -136,7 +136,7 @@
 
 .textAreaContainer {
   margin-top: auto;
-  background-color: rgb(247, 249, 250);
+  background-color: #f7f9fa;
   min-height: 50px;
   display: flex;
   padding: 15px 15px;
@@ -189,7 +189,7 @@
   resize: none;
   border-radius: 3px;
   border: none;
-  /* margin-bottom: 2.5px; */
+  background-color: #f7f9fa;
   padding: 0 5px;
   font-size: 14px;
 }
@@ -204,6 +204,16 @@
   bottom: 90px;
   border-radius: 5px;
   z-index: 2;
+}
+.closeEmojiDivButton{
+  width: 100%;
+  color: #ffffff;
+  background-color: rgb(218, 0, 0);
+  border: none;
+  height: 40px;
+  border-radius: 4px 4px 0 0;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 /*  */
@@ -324,6 +334,7 @@
 
   .chatArea1 {
     width: calc(100% - 340px);
+    position: relative;
   }
 
   .chatArea2 {
@@ -337,7 +348,6 @@
     margin: 0 20px;
     border-radius: 10px;
     width: 300px;
-
   }
 
   .menuIcon,

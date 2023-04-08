@@ -18,8 +18,9 @@ export const MainContext = createContext<MainContextInterface>({} as MainContext
 
 export function MainProvider({ children }: AuthContextProviderProps) {
 
+  // const baseUrl = "http://localhost:5000"
   const baseUrl = "https://sammy-warroom-api.onrender.com"
-  
+
   const [cookies, setCookie, removeCookie] = useCookies(["roomId", "joinPassword"]);
   const [generalLoading, setgeneralLoading] = useState<boolean>(false);
   const [popupEvent, setpopupEvent] = useState<string | null>("");
@@ -37,6 +38,7 @@ export function MainProvider({ children }: AuthContextProviderProps) {
 
 
   const socket = io("https://sammy-warroom-api.onrender.com")
+  // const socket = io("http://localhost:5000")
 
   const initializeSocketIO = () => {
     socket.on("connect", () => { })
@@ -126,13 +128,21 @@ export function MainProvider({ children }: AuthContextProviderProps) {
     const joinPassword = cookies.joinPassword
     if (!roomId || !name) return;
     const username = name
+    const color = getUserColor()
+    // this below should temporarily update the message before it receives its response from the database
+    if(messages)
+    setmessages([...messages, {
+      sender: username,
+      message,
+      color
+    }])
     return axios({
       method: "post",
       data: {
         message: {
           sender: username,
           message: message,
-          color: getUserColor()
+          color
         },
         roomId: roomId,
         joinPassword: joinPassword
@@ -235,7 +245,7 @@ export function MainProvider({ children }: AuthContextProviderProps) {
       })
   }
 
-  const sendReportMail = (name:string, email:string, message:string) => {
+  const sendReportMail = (name: string, email: string, message: string) => {
     return axios({
       url: `${baseUrl}/sendMail`,
       withCredentials: true,

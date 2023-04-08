@@ -54,6 +54,27 @@ function Chat() {
   }, [creator]);
 
   useEffect(() => {
+    const autoCloseMenu = (e: MouseEvent) => {
+      const target = (e.target as Element)
+      if(!target.parentElement || !target.parentElement.parentElement || !target.parentElement.parentElement.parentElement)return
+      if (
+        !target.classList.contains("menuContainer") &&
+        !target.classList.contains("menuIcon") &&
+        !target.parentElement.classList.contains("menuContainer") &&
+        !target.parentElement.parentElement.classList.contains("menuContainer") &&
+        !target.parentElement.parentElement.parentElement.classList.contains("menuContainer")
+      ) {
+        setshowMenu(false)
+      }
+    }
+    window.addEventListener("click",(e) => autoCloseMenu(e))
+
+    return () => {
+      window.removeEventListener("click", (e)=> autoCloseMenu(e))
+    }
+  }, []);
+
+  useEffect(() => {
     if (!choosenEmoji) return
     inputRef.current?.focus()
     if (inputRef.current && choosenEmoji?.emoji) {
@@ -117,7 +138,7 @@ function Chat() {
   const sendMedia = () => {
     if (!uploadedFiles) return
     Object.keys(uploadedFiles).forEach(file => {
-      if(uploadedFiles[Number(file)].size > 20480000){
+      if (uploadedFiles[Number(file)].size > 20480000) {
         setnotificationObj({
           backgroundColor: "red",
           text: "Some files may be greater than 20MB!",
@@ -128,7 +149,7 @@ function Chat() {
         return
       }
     })
-    
+
     let formData = new FormData()
     for (let i = 0; i < uploadedFiles.length; i++) {
       formData.append("files", uploadedFiles[i])
@@ -148,7 +169,7 @@ function Chat() {
       {currentImageFullView?.display && <FullView />}
       {showPreviewImagePage && <PreviewImages setshowPreviewImagePage={setshowPreviewImagePage} previewArray={previewArray} setpreviewArray={setpreviewArray} sendMedia={sendMedia} setimageMessage={setimageMessage} />}
       {showRedDot && <div className='redDot'></div>}
-      <img src={menuWhiteIcon} alt="" className="menuIcon" onClick={() => {setshowMenu(true);     setshowRedDot(false)}} />
+      <img src={menuWhiteIcon} alt="" className="menuIcon" onClick={() => { setshowMenu(true); setshowRedDot(false) }} />
       {showMenu && <Menu setshowMenu={setshowMenu} />}
       {showCopyLinkText && <div className="copyRoomLinkDiv">
         <div>
@@ -182,7 +203,7 @@ function Chat() {
           <Menu setshowMenu={setshowMenu} />
         </div>
         <div className="chatArea1">
-          {showSelectEmojiPage && <ShowEmoji setchoosenEmoji={setchoosenEmoji} />}
+          {showSelectEmojiPage && <ShowEmoji setchoosenEmoji={setchoosenEmoji} setshowSelectEmojiPage={setshowSelectEmojiPage}/>}
           <TextDisplay />
           <TextArea
             clearInputField={clearInputField}
