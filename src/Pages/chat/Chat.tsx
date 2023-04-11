@@ -169,14 +169,14 @@ function Chat() {
       {currentImageFullView?.display && <FullView />}
       {showPreviewImagePage && <PreviewImages setshowPreviewImagePage={setshowPreviewImagePage} previewArray={previewArray} setpreviewArray={setpreviewArray} sendMedia={sendMedia} setimageMessage={setimageMessage} />}
       {showRedDot && <div className='redDot'></div>}
-      <img src={menuWhiteIcon} alt="" className="menuIcon" onClick={() => { setshowMenu(true); setshowRedDot(false) }} />
+      <img src={menuWhiteIcon} alt="" className="menuIcon hoverable" onClick={() => { setshowMenu(true); setshowRedDot(false) }} />
       {showMenu && <Menu setshowMenu={setshowMenu} />}
       {showCopyLinkText && <div className="copyRoomLinkDiv">
         <div>
           <p><b>Room Id: </b>{cookies.roomId}</p>
           <img src={copyIcon}
             alt=""
-            className='copyIcon'
+            className='copyIcon hoverable'
             onClick={() => {
               navigator.clipboard.writeText(cookies.roomId)
               setnotificationObj({
@@ -190,7 +190,7 @@ function Chat() {
           />
         </div>
         <img src={closeIcon} alt=""
-          className="closeLink"
+          className="closeLink hoverable"
           onClick={() => setshowCopyLinkText(false)}
         />
       </div>}

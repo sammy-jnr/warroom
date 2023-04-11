@@ -27,7 +27,7 @@ const Menu: React.FC<MenuProps> = (props) => {
 
   return (
     <div className='menuContainer'>
-      <img src={closeBlack} alt="" className="closeIcon c-b" onClick={() => props.setshowMenu(false)} />
+      <img src={closeBlack} alt="" className="closeIcon c-b hoverable" onClick={() => props.setshowMenu(false)} />
       <p><b>Members</b> <span>{members?.length}</span></p>
       <ul className="membersList">
         {

@@ -15,7 +15,7 @@ const TextArea: React.FC<InputProps> = (props) => {
 
   return (
     <div className='textAreaContainer'>
-      <img src={emojiIcon} alt="" className="emojiIcon" onClick={() => props.setshowSelectEmojiPage(prev => !prev)} />
+      <img src={emojiIcon} alt="" className="emojiIcon hoverable" onClick={() => props.setshowSelectEmojiPage(prev => !prev)} />
       <TextareaAutosize
         ref={props.inputRef}
         maxRows={4}
@@ -32,7 +32,7 @@ const TextArea: React.FC<InputProps> = (props) => {
           onChange={(e) => props.onNewFile(e)} />
         <img src={galleryIcon} alt="" className="galleryIcon" />
       </div>
-      <img src={sendIcon} alt="" className="sendIcon" onClick={() => {
+      <img src={sendIcon} alt="" className="sendIcon hoverable" onClick={() => {
         props.clearInputField()
         sendMessageToDB(props.message)
       }} />

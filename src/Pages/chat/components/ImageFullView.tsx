@@ -1,5 +1,5 @@
 import React from 'react'
-import closeIcon from "../../../Assets/Icons/closeIcon.svg"
+import backArrowWhite from "../../../Assets/Icons/backArrowWhite.svg"
 import { ImageFullViewProps } from '../../../Interface'
 
 const ImageFullView: React.FC<ImageFullViewProps> = (props) => {
@@ -7,9 +7,10 @@ const ImageFullView: React.FC<ImageFullViewProps> = (props) => {
 
   return (
     <div className='imageFullView'>
-      <img src={closeIcon}
+      <img src={backArrowWhite}
         alt=""
         id='previewBackIcon'
+        className='hoverable'
         onClick={() => props.setshowFullScreen(false)}
       />
       {

@@ -36,3 +36,16 @@ button:hover {
   height: 100vh;
   width: 100vw;
 }
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #9f9f9f;
+  border-radius: 10px;
+}
