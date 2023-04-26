@@ -11,23 +11,23 @@ function Home() {
 
   useEffect(() => {
     const closeHomePopup = (e: MouseEvent) => {
-      if((e.target as any).className !== "questionMark"){
+      if ((e.target as any).className !== "questionMark") {
         setshowHomePopup(false)
       }
     }
-    window.addEventListener("click",(e) => closeHomePopup(e))
-  return () => {
-    window.removeEventListener("click",(e) => closeHomePopup(e))
-  }
+    window.addEventListener("click", (e) => closeHomePopup(e))
+    return () => {
+      window.removeEventListener("click", (e) => closeHomePopup(e))
+    }
   }, []);
-  
+
 
   return (
     <div className='homeContainer'>
       <img src={questionMark}
         alt=""
         className="questionMark"
-        onClick={()=>setshowHomePopup(prev => !prev)} 
+        onClick={() => setshowHomePopup(prev => !prev)}
       />
       {showHomePopup &&
         <div className='homePopup'>
@@ -40,7 +40,12 @@ function Home() {
         </div>
       }
       <div className='homeContainerTop'>
-        <h1>War Room</h1>
+        <h1>WR</h1>
+        <div className='homeContainerTopText'>
+          <h1>Chat</h1>
+          <h2>Anonymously</h2>
+          <p>Welcome to warroom, <br /> no credit cards or sign-ups required</p>
+        </div>
       </div>
       <div className='homeContainerBottom'>
         <div className="homeButtonDiv">

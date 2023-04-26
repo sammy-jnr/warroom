@@ -150,6 +150,9 @@ function Chat() {
       }
     })
 
+    //close emoji page if open
+    setshowSelectEmojiPage(false)
+
     let formData = new FormData()
     for (let i = 0; i < uploadedFiles.length; i++) {
       formData.append("files", uploadedFiles[i])

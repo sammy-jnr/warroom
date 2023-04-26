@@ -1,7 +1,7 @@
 .homeContainer {
   width: 100%;
   height: 100%;
-  background-image: url("../../Assets/Images/homeBackgroundSmall.png");
+  background-image: url("../../Assets/Images/homeBackgroundLarge.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50%;
@@ -13,7 +13,8 @@
   width: 25px;
   position: absolute;
   right: 23px;
-  top: 22px;
+  top: 30px;
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
 }
 .questionMark:hover{
   cursor: pointer;
@@ -30,9 +31,14 @@
   border-radius: 5px;
 }
 .homeContainerTop {
-  height: 60%;
+  height: 50%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
+
+
+
 .homeopupItems{
   padding: 10px;
 }
@@ -40,13 +46,39 @@
   cursor: pointer;
 }
 
-.homeContainerTop h1 {
+.homeContainerTop > h1 {
   margin: 20px;
+  font-weight: 900;
+  font-size: 20px;
+  color: #010c1c;
+  border-radius: 50%;
+  background-color: white;
+  width: 45px;
+  min-height: 45px;
+  display: grid;
+  place-items: center;
+}
+.homeContainerTopText{
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  text-shadow: 5px 5px 10px #886cd5;
+}
+.homeContainerTopText h1{
+  font-size: 80px;
+}
+.homeContainerTopText h2{
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.homeContainerTopText p{
+  font-size: 17px;
+  /* text-align: left; */
+  color: #e9e9e9;
 }
 
 .homeContainerBottom {
-  height: 40%;
-  /* background-color: ; */
+  height: 50%;
   background-image: url("../../Assets/Images/miniBackgroundSmall1.svg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -64,27 +96,47 @@
 }
 
 .homeButtons {
-  padding: 10px 30px;
-  padding-inline: clamp(20px, 30px, 40px);
-  border: 6px solid #1d3557;
-  border-radius: 5px;
+  padding: 20px 10px;
+  width: 40%;
+  max-width: 400px;
+  border: none;
+  border-radius: 10px;
   font-weight: 600;
   font-size: 16px;
-  background: #e0e0e0;
-  box-shadow: inset 13px 13px 26px #1d3557c5,
-    inset -13px -13px 26px #ffffff;
+  background: #1d3557;
+  color: #ffffff;
+  font-size: 17px;
+  box-shadow: 0px 5px #1d3557c2;
+}
+.homeButtons:hover{
+  transform: translateY(5px);
+  transition: all 0.2s;
+  box-shadow: 0px 0px #1d3557c2;
+  background: #253f64;
 }
 
-#joinBtn {
-  box-shadow: inset 1px 1px 26px #1d3557c5,
-    inset 1px 1px 2px #ffffff;
-}
+
 
 
 @media screen and (min-width: 480px) {
   .homeContainerBottom {
     background-image: url("../../Assets/Images/miniBackgroundMediumLarge.svg");
   }
+  .homeContainerTopText h1{
+    font-size: 7em;
+  }
+  .homeContainerTopText h2{
+    font-size: 3.5em;
+    margin-bottom: 20px;
+  }
+  .homeContainerTopText p{
+    font-size: 22px;
+    color: #c7c7c7;
+  }
+  .homeButtons {
+    font-size: 20px;
+  }
+
 
 }
 

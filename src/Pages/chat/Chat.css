@@ -65,7 +65,7 @@
 }
 
 .menuContainer {
-  position: absolute;
+  position: fixed;
   width: 60%;
   max-width: 350px;
   height: 100%;
@@ -110,6 +110,7 @@
 
 .c-b {
   width: 27px;
+  top: 17px;
 }
 
 .fullChatArea {
@@ -364,7 +365,7 @@
 
 /*  */
 .previewImages {
-  position: absolute;
+  position: fixed;
   z-index: 4;
   width: 100%;
   height: 100%;
@@ -378,7 +379,7 @@
 }
 
 .uploadImageLoading {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background-color: #020e1aca;
@@ -436,8 +437,8 @@
 #previewBackIcon {
   width: 30px;
   position: absolute;
-  left: 20px;
-  top: 20px;
+  left: 15px;
+  top: 15px;
 }
 
 .previewCurrentImage {
@@ -523,7 +524,7 @@
 
 /*  */
 .imageFullView {
-  position: absolute;
+  position: fixed;
   z-index: 4;
   width: 100%;
   height: 100%;
