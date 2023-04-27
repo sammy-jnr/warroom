@@ -28,4 +28,4 @@ then enter a username as well
 - Completely free
 - Easy to use
 
-check it out [here].(https://warroom.onrender.com)
+## check it out [here](https://warroom.onrender.com)
