@@ -10,7 +10,7 @@ const Instructions = () => {
       <header>
         <img src={backArrow}
           alt=""
-          className='backArrow' 
+          className='backArrow hoverable' 
           onClick={()=>navigate(-1)}
           />
         <h2>Instructions</h2>

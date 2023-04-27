@@ -73,7 +73,7 @@ const Contact = () => {
       <header>
         <img src={backArrow}
           alt=""
-          className='backArrow'
+          className='backArrow hoverable'
           onClick={() => navigate(-1)}
         />
         <h2>Contact Us</h2>
